@@ -1,0 +1,58 @@
+# Copyright 2020 Google Inc. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: schema-registry
+  name: schema-registry
+spec:
+  ports:
+  - name: "8081"
+    port: 8081
+    targetPort: 8081
+  clusterIP: None
+  selector:
+    service: schema-registry
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    service: schema-registry
+  name: schema-registry
+spec:
+  serviceName: schema-registry
+  replicas: 1
+  selector:
+    matchLabels:
+      service: schema-registry
+  template:
+    metadata:
+      labels:
+        service: schema-registry
+    spec:
+      containers:
+      - env:
+        - name: SCHEMA_REGISTRY_HOST_NAME
+          value: schema-registry-0.schema-registry.default.svc.cluster.local
+        - name: SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL
+          value: zookeeper-0.zookeeper.default.svc.cluster.local:2181
+        - name: SCHEMA_REGISTRY_LISTENERS
+          value: http://schema-registry-0.schema-registry.default.svc.cluster.local:8081
+        image: confluentinc/cp-schema-registry
+        name: schema-registry
+        ports:
+        - containerPort: 8081

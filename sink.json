@@ -1,0 +1,18 @@
+{
+  "name": "bq-connector",
+  "config": {
+    "connector.class": "com.wepay.kafka.connect.bigquery.BigQuerySinkConnector",
+    "tasks.max": "1",
+    "topics": "spanner_Test",
+    "autoCreateTables": "true",
+    "autoUpdateSchemas": "true",
+    "schemaRetriever": "com.wepay.kafka.connect.bigquery.schemaregistry.schemaretriever.SchemaRegistrySchemaRetriever",
+    "schemaRegistryLocation": "http://schema-registry-0.schema-registry.default.svc.cluster.local:8081",
+    "bufferSize": "100000",
+    "maxWriteSize": "10000",
+    "tableWriteWait": "1000",
+    "project": "[PROJECT_ID]",
+    "datasets": ".*=test_bq",
+    "keyfile": "/secrets/credentials.json"
+  }
+}
