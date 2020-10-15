@@ -70,4 +70,4 @@ sinks in Kafka Connect.
 ## Setup
 
 Steps to run the setup are covered in the
-[Change log capture from Cloud Spanner to BigQuery using Debezium tutorial](https://cloud.google.com/solutions/TBD)
+[Change log capture from Cloud Spanner to BigQuery using Debezium tutorial](https://cloud.google.com/solutions/capturing-change-logs-with-debezium)
