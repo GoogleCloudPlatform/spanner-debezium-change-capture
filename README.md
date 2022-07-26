@@ -1,5 +1,11 @@
 # Change log capture from Cloud Spanner to BigQuery using Debezium/Kafka-Connect
 
+Cloud Spanner has officially released native change streams support, which is recommended instead of this solution.
+
+For more information see [https://cloud.google.com/spanner/docs/change-streams](https://cloud.google.com/spanner/docs/change-streams).
+
+## Support / Copyright
+
 This is not an officially supported Google product.
 
 Copyright 2020 Google LLC
